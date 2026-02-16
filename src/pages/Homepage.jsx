@@ -1,5 +1,6 @@
 import Hero from "../home/Hero"
 import Projects from "../home/Projects"
+import Tech from "@/home/Tech"
 
 export default function Homepage() {
     return (
@@ -138,6 +139,7 @@ export default function Homepage() {
             <p>guscgushiohdiaidhsdxiohsuvfshiohoihsoeihoifhrshiohuerxdilhgizrsufiusriuhfusehfhilshziuhzfuhsuiehfihzsihfuzes</p>
             <p>guscgushiohdiaidhsdxiohsuvfshiohoihsoeihoifhrshiohuerxdilhgizrsufiusriuhfusehfhilshziuhzfuhsuiehfihzsihfuzes</p>
             <Projects />
+            <Tech />
         </main>
     )
 }
