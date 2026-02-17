@@ -1,11 +1,13 @@
 import Hero from "../home/Hero"
 import Projects from "../home/Projects"
 import Tech from "@/home/Tech"
+import ScrollZoomHero from "@/components/ScrollZoomHero"
 
 export default function Homepage() {
     return (
         <main>
             <Hero />
+            <ScrollZoomHero />
             <p>guscgushiohdiaidhsdxiohsuvfshiohoihsoeihoifhrshiohuerxdilhgizrsufiusriuhfusehfhilshziuhzfuhsuiehfihzsihfuzes</p>
             <p>guscgushiohdiaidhsdxiohsuvfshiohoihsoeihoifhrshiohuerxdilhgizrsufiusriuhfusehfhilshziuhzfuhsuiehfihzsihfuzes</p>
             <p>guscgushiohdiaidhsdxiohsuvfshiohoihsoeihoifhrshiohuerxdilhgizrsufiusriuhfusehfhilshziuhzfuhsuiehfihzsihfuzes</p>
