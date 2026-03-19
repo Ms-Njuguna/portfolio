@@ -101,6 +101,10 @@ export default function Projects() {
           "Form validation + UX details",
         ],
         live: "https://italo-jewelry-redesign.pages.dev/",
+        images: [
+          "/assets/projects/italo-home.jpeg",
+          "/assets/projects/italo-productpreview.jpeg",
+        ],
       },
     ],
     []
@@ -178,6 +182,19 @@ export default function Projects() {
               </div>
 
               <p className="mt-4 text-sm opacity-80">{active.blurb}</p>
+
+              {active.images && (
+                <div className="mt-5 flex gap-3 overflow-x-auto pb-2">
+                  {active.images.map((img, index) => (
+                    <img
+                      key={index}
+                      src={img}
+                      alt={`${active.title} screenshot ${index + 1}`}
+                      className="h-40 w-auto rounded-xl border border-white/10 object-cover"
+                    />
+                  ))}
+                </div>
+              )}
 
               <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">
                 <div className="text-xs uppercase tracking-wide opacity-60">
