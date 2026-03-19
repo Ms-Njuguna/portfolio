@@ -146,7 +146,7 @@ export default function Projects() {
             onClick={() => setOpen(null)}
           >
             <motion.div
-              className="w-full max-w-2xl rounded-3xl border border-white/10 bg-neutral-950 p-6"
+              className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border border-white/10 bg-neutral-950 p-6"
               initial={{ y: 20, opacity: 0, scale: 0.98 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 20, opacity: 0, scale: 0.98 }}
@@ -222,7 +222,7 @@ export default function Projects() {
                 ))}
               </div>
 
-              <div className="mt-6 flex gap-3">
+              <div className="mt-6 flex gap-3 sticky bottom-0 bg-neutral-950 pt-4">
                 <a
                   href={active.live}
                   target="_blank"
