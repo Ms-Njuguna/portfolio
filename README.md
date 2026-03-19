@@ -46,7 +46,7 @@ A full-stack reservation platform built with real-world architecture.
 
 ## Live Links
 
-- 🌐 Frontend: https://your-portfolio-link.com
+- 🌐 Frontend: https://by-juna.pages.dev/
 
 ---
 
