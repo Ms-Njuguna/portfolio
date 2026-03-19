@@ -3,7 +3,7 @@ import FallingText from "../ui/FallingText";
 export default function Hero() {
   return (
     <section className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
-      <div className="h-[260px] md:h-[240px]">
+      <div className="h-65 md:h-60">
         <FallingText
           text={`I build full-stack experiences — clean APIs, beautiful interfaces, and the kind of polish that makes users trust the product instantly.`}
           highlightWords={[

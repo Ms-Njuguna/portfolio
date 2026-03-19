@@ -20,25 +20,25 @@ export default function ScrollHorizontal() {
       {
         id: 2,
         color: "#A78BFA",
-        label: "Beauty Ordering App",
+        label: "Verdara - Beauty Ordering App",
         caption: "Public API • Tailwind • UX",
       },
       {
         id: 3,
         color: "#22C55E",
-        label: "Beer Review CRUD",
+        label: "Italo Jewelry Redesign",
         caption: "DOM • JSON Server • CRUD",
       },
       {
         id: 4,
         color: "#F97316",
-        label: "NuVibe Frontend",
+        label: "Little Lemon Frontend",
         caption: "React • Validation • UI",
       },
       {
         id: 5,
         color: "#FF4D8D",
-        label: "Artist Onboarding MVP",
+        label: "Nuvibe Frontend",
         caption: "Flows • Forms • Product thinking",
       },
     ],
@@ -58,7 +58,7 @@ export default function ScrollHorizontal() {
       <section className="intro-section">
         <h3 className="impact">CASE STUDIES</h3>
         <p className="sub">
-          Scroll to travel through builds — each one designed like a product.
+          Scroll to travel through builds, each one designed like a product.
         </p>
       </section>
 
