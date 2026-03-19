@@ -67,6 +67,18 @@ export default function Projects() {
           "Polished responsive UI",
         ],
         live: "https://verdara.pages.dev/",
+        caseStudy: {
+          problem: "Users browsing products from public APIs often experience slow load times, broken UI states, and poor cart interactions due to unreliable data and lack of proper state handling.",
+          solution: "Built a fast, responsive product browsing experience using vanilla JavaScript, with dynamic rendering, defensive fetch handling, and a fully interactive cart system.",
+          tech: [
+            "Vanilla JavaScript for full control over DOM and logic",
+            "Fetch API with error handling and fallback UI",
+            "State management using structured objects and arrays",
+            "Tailwind CSS for responsive and clean UI design"
+          ],
+          challenges: "Handling inconsistent API data and ensuring the UI doesn't break when requests fail. Also managing cart state dynamically without a framework.",
+          impact: "Delivered a smooth and resilient shopping experience with fast interactions, improved error handling, and clean UI responsiveness across devices."
+        }
       },
       {
         id: "italo",
