@@ -25,7 +25,7 @@ const FallingText = ({
       .map(word => {
         const isHighlighted = highlightWords.some(hw => word.startsWith(hw));
         return `<span
-          class="inline-block mx-0.5 select-none ${isHighlighted ? 'text-cyan-500 font-bold' : ''}"
+          class="inline-block mx-0.5 select-none ${isHighlighted ? 'text-[#495E57] font-bold' : ''}"
         >
           ${word}
         </span>`;

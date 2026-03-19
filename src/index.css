@@ -126,6 +126,6 @@
 html { scroll-behavior: smooth; }
 
 .highlighted {
-  color: rgb(34 211 238);
+  color: rgba(34, 238, 153, 0.83);
   font-weight: 700;
 }

@@ -1,9 +1,9 @@
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
-import { useRef } from "react";
-import PF from "../assets/p2026.jpg";
+import { useRef, useEffect } from "react";
 
 export default function ScrollZoomHero() {
   const ref = useRef(null);
+  const canvasRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -22,33 +22,82 @@ export default function ScrollZoomHero() {
 
   const titleY = useTransform(smooth, [0, 1], ["0%", "-14%"]);
   const titleOpacity = useTransform(smooth, [0, 0.7, 1], [1, 1, 0]);
-
   const fadeOpacity = useTransform(smooth, [0.55, 1], [0, 1]);
+
+  // Cyberpunk Matrix rain
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    const fontSize = 16;
+    const columns = Math.floor(width / fontSize);
+    const drops = Array.from({ length: columns }, () => Math.random() * height);
+    const speeds = Array.from({ length: columns }, () => 2 + Math.random() * 4);
+
+    const characters =
+      "アァカサタナハマヤャラワガザダバパイィキシチニヒミリギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレゲゼデベペオォコソトノホモヨョロヲゴゾドボポ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    const colors = ["#0f0", "#0ff", "#f0f", "#0ff", "#0f0"]; // Green, cyan, pink
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, width, height);
+
+      drops.forEach((y, i) => {
+        const char = characters.charAt(Math.floor(Math.random() * characters.length));
+        const x = i * fontSize;
+
+        // Randomly choose neon color
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        ctx.shadowColor = color;
+        ctx.shadowBlur = 8;
+        ctx.fillStyle = color;
+        ctx.font = `${fontSize}px monospace`;
+        ctx.fillText(char, x, y);
+
+        drops[i] = y + speeds[i];
+        if (y > height && Math.random() > 0.975) {
+          drops[i] = 0;
+          speeds[i] = 2 + Math.random() * 4;
+        }
+      });
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    const handleResize = () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className="w-full">
       <section ref={ref} className="relative h-[220vh]">
         <div className="sticky top-0 h-screen overflow-hidden">
-          <motion.div
+          <motion.canvas
+            ref={canvasRef}
             style={{ scale: bgScale, filter: bgBlur, opacity: bgOpacity }}
-            className="absolute inset-0 will-change-transform"
-          >
-            <img
-              src={PF}
-              alt="Portfolio background"
-              className="h-full w-full object-cover"
-              draggable="false"
-            />
-          </motion.div>
+            className="absolute inset-0 will-change-transform bg-black"
+          />
 
+          {/* Dark gradient overlay */}
           <motion.div style={{ y: layer2Y }} className="absolute inset-0 will-change-transform">
             <div className="absolute inset-0 bg-linear-to-b from-black/35 via-black/10 to-black/60" />
           </motion.div>
 
+          {/* Light blob layer */}
           <motion.div style={{ y: layer1Y }} className="absolute inset-0 will-change-transform">
             <div className="absolute -top-24 left-1/2 h-130 w-130 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
           </motion.div>
 
+          {/* Grain overlay */}
           <motion.div style={{ opacity: grainOpacity }} className="absolute inset-0 pointer-events-none">
             <div
               className="absolute inset-0"
@@ -61,6 +110,7 @@ export default function ScrollZoomHero() {
             />
           </motion.div>
 
+          {/* Hero text */}
           <motion.div
             style={{ y: titleY, opacity: titleOpacity }}
             className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center"
@@ -69,10 +119,11 @@ export default function ScrollZoomHero() {
               TRISH
             </h1>
             <p className="mt-2 max-w-xl px-6 text-sm md:text-base text-white/80">
-              Full-stack software engineer — React interfaces + documented APIs + the polish that sells.
+              Full-stack software engineer dealing with React interfaces + documented APIs + the polish that sells.
             </p>
           </motion.div>
 
+          {/* Fade out at bottom */}
           <motion.div style={{ opacity: fadeOpacity }} className="absolute inset-x-0 bottom-0 z-20 h-40">
             <div className="h-full w-full bg-linear-to-b from-transparent to-neutral-950" />
           </motion.div>

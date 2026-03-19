@@ -18,7 +18,7 @@ export default function Homepage() {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-neutral-950/75 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <a href="#top" className="font-semibold tracking-tight">
-            Trish Njuguna<span className="opacity-60"> — Full-Stack</span>
+            Trish Njuguna<span className="opacity-60"> ● Full-Stack Developer</span>
           </a>
 
           <nav className="hidden gap-6 text-sm md:flex">
@@ -70,7 +70,7 @@ export default function Homepage() {
           <div>
             <h2 className="text-2xl font-semibold tracking-tight">Featured work</h2>
             <p className="mt-1 text-sm opacity-70">
-              Scroll-driven gallery. Each card is a case study story — problem → build → impact.
+              Scroll-driven gallery. Each card is a case study story ● problem → build → impact.
             </p>
           </div>
           <div className="text-xs opacity-60">Scroll ↓</div>
