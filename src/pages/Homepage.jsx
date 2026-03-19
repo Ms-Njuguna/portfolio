@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Hero from "../home/Hero";
 import Projects from "../home/Projects";
 import Tech from "../home/Tech";
@@ -83,15 +84,15 @@ export default function Homepage() {
         <Projects />
       </section>
 
-         {/* GitHub Activity */}
-<section className="mx-auto max-w-6xl px-5 pb-16">
-  <GithubActivity username="Ms-Njuguna" limit={10} />
-</section>
+      {/* GitHub Activity */}
+      <section className="mx-auto max-w-6xl px-5 pb-16">
+        <GithubActivity username="Ms-Njuguna" limit={10} />
+      </section>
 
-{/* API Docs Embed */}
-<section className="mx-auto max-w-6xl px-5 pb-16">
-  <ApiDocsEmbed />
-</section>
+      {/* API Docs Embed */}
+      <section className="mx-auto max-w-6xl px-5 pb-16">
+        <ApiDocsEmbed />
+      </section>
 
       {/* Tech orbit (fixed) */}
       <section id="stack" className="mx-auto max-w-6xl px-5 py-16">
@@ -139,22 +140,42 @@ export default function Homepage() {
 }
 
 function CopyChip({ label, value }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard?.writeText(value);
+    setCopied(true);
+
+    setTimeout(() => setCopied(false), 1500);
+  };
+
   return (
     <button
-      onClick={() => navigator.clipboard?.writeText(value)}
-      className="flex items-center justify-between gap-2 rounded-full border border-white/15 px-4 py-2 text-sm hover:bg-white/5"
+      onClick={handleCopy}
+      className="relative group flex items-center justify-between gap-2 rounded-full border border-white/15 px-4 py-2 text-sm hover:bg-white/5"
       title="Click to copy"
       type="button"
     >
+      {/* TEXT */}
       <span className="truncate">
         <span className="opacity-60">{label}:</span> {value}
       </span>
 
+      {/* ICON */}
       <img
         alt="copy icon"
         src={Copy}
-        className="h-5 w-5 shrink-0 opacity-60"
+        className="h-5 w-5 shrink-0 opacity-60 transition-opacity group-hover:opacity-100"
       />
+
+      {/* TOOLTIP */}
+      <span
+        className={`absolute -top-8 right-2 text-xs px-2 py-1 rounded-md bg-white text-black transition-all duration-300 ${
+          copied ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"
+        }`}
+      >
+        Copied!
+      </span>
     </button>
   );
 }
