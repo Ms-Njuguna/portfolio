@@ -6,6 +6,7 @@ import ScrollHorizontal from "../components/ScrollHorizontal";
 import CommandK from "../components/CommandK";
 import GithubActivity from "../components/GithubActivity";
 import ApiDocsEmbed from "../components/ApiDocsEmbed";
+import Copy from "../assets/copy.svg";
 
 export default function Homepage() {
   return (
@@ -113,12 +114,12 @@ export default function Homepage() {
         <div className="mx-auto max-w-6xl px-5 py-14">
           <h3 className="text-xl font-semibold tracking-tight">Let’s build something loud (in a good way).</h3>
           <p className="mt-2 max-w-2xl text-sm opacity-70">
-            If you want a developer who can handle UI, APIs, and the “last 10% polish” that makes projects feel expensive —
+            If you want a developer who can handle UI, APIs, and the “last 10% polish” that makes projects feel expensive,
             I’m your person.
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
-            <CopyChip label="Email" value="patricia@example.com" />
+            <CopyChip label="Email" value="njugunatrish@gmail.com" />
             <CopyChip label="GitHub" value="https://github.com/Ms-Njuguna" />
             <a
               className="rounded-full border border-white/15 px-4 py-2 text-sm hover:bg-white/5"
@@ -141,11 +142,19 @@ function CopyChip({ label, value }) {
   return (
     <button
       onClick={() => navigator.clipboard?.writeText(value)}
-      className="rounded-full border border-white/15 px-4 py-2 text-sm hover:bg-white/5"
+      className="flex items-center justify-between gap-2 rounded-full border border-white/15 px-4 py-2 text-sm hover:bg-white/5"
       title="Click to copy"
       type="button"
     >
-      <span className="opacity-60">{label}:</span> {value} <span className="opacity-60">copy</span>
+      <span className="truncate">
+        <span className="opacity-60">{label}:</span> {value}
+      </span>
+
+      <img
+        alt="copy icon"
+        src={Copy}
+        className="h-5 w-5 shrink-0 opacity-60"
+      />
     </button>
   );
 }
