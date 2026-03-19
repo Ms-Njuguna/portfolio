@@ -42,6 +42,18 @@ export default function Projects() {
           "Connected to backend API",
         ],
         live: "https://littlelemon-517.pages.dev/",
+        caseStudy: {
+          problem: "Users need a smooth and intuitive way to browse a restaurant and make bookings online, but many interfaces are slow, confusing, or not mobile-friendly.",
+          solution: "Built a responsive React frontend that integrates with the Little Lemon API, focusing on seamless booking flows, validation, and clean UI/UX patterns.",
+          tech: [
+            "React for component-based architecture",
+            "React Router for navigation and page structure",
+            "Form validation for better user experience",
+            "API integration with backend for real-time booking data"
+          ],
+          challenges: "Managing form state and validation while keeping the UI responsive and user-friendly. Also ensuring smooth communication between frontend and backend APIs.",
+          impact: "Delivered a clean, responsive interface that improves user experience and enables real-time booking interactions with the backend system."
+        }
       },
       {
         id: "verdara",
