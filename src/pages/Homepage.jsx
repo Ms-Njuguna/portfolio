@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Hero from "../home/Hero";
 import Projects from "../home/Projects";
 import Tech from "../home/Tech";
@@ -181,29 +181,82 @@ function CopyChip({ label, value }) {
 }
 
 function ApiPlayground() {
+  const [bookings, setBookings] = useState(null);
+  const [products, setProducts] = useState(null);
+  const [loading, setLoading] = useState({ bookings: true, products: true });
+  const [error, setError] = useState({ bookings: null, products: null });
+
+  // Reusable fetch functions
+  const fetchBookings = () => {
+    setLoading((prev) => ({ ...prev, bookings: true }));
+    fetch("https://little-lemon-api-bdsl.onrender.com/api/bookings?date=2026-02-26")
+      .then((res) => res.json())
+      .then((data) => {
+        setBookings(data);
+        setLoading((prev) => ({ ...prev, bookings: false }));
+      })
+      .catch((err) => {
+        setError((prev) => ({ ...prev, bookings: err.message }));
+        setLoading((prev) => ({ ...prev, bookings: false }));
+      });
+  };
+
+  const fetchProducts = () => {
+    setLoading((prev) => ({ ...prev, products: true }));
+    fetch("https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline&limit=3")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setLoading((prev) => ({ ...prev, products: false }));
+      })
+      .catch((err) => {
+        setError((prev) => ({ ...prev, products: err.message }));
+        setLoading((prev) => ({ ...prev, products: false }));
+      });
+  };
+
+  // Initial fetch on mount
+  useEffect(() => {
+    fetchBookings();
+    fetchProducts();
+  }, []);
+
   const examples = [
     {
       title: "Bookings API (Django)",
       req: `GET /api/bookings?date=2026-02-26`,
-      res: `200 OK
-[
-  { "id": 14, "name": "Nina", "time": "19:00", "guests": 2 },
-  { "id": 18, "name": "Kato", "time": "20:30", "guests": 4 }
-]`,
+      res: loading.bookings
+        ? "Loading..."
+        : error.bookings
+        ? `Error: ${error.bookings}`
+        : JSON.stringify(bookings, null, 2),
       note: "Swagger-first mindset: design → validate → build.",
+      onRefresh: fetchBookings,
     },
     {
       title: "Products API (Public API integration)",
-      req: `GET /products?brand=maybelline&limit=6`,
-      res: `200 OK
-{
-  "brand": "maybelline",
-  "items": [
-    { "name": "Fit Me", "price": 9.99 },
-    { "name": "SuperStay", "price": 12.50 }
-  ]
-}`,
+      req: `GET /products?brand=maybelline&limit=3`,
+      res: loading.products
+        ? "Loading..."
+        : error.products
+        ? `Error: ${error.products}`
+        : JSON.stringify(
+          {
+            brand: "maybelline",
+            items: products
+              ?.slice(0, 6)
+              .map((p) => ({
+                name: p.name,
+                price: p.price,
+                image_link: p.image_link,
+                product_link: p.product_link,
+              })),
+          },
+          null,
+          2
+        ),
       note: "Fast UI + caching patterns + defensive error handling.",
+      onRefresh: fetchProducts,
     },
   ];
 
@@ -217,22 +270,33 @@ function ApiPlayground() {
           </p>
         </div>
         <div className="text-xs opacity-60">
-          (This is a portfolio demo UI — wire it to your live endpoints anytime.)
+          (This is a portfolio demo wired it to my live endpoints.)
         </div>
       </div>
 
       <div className="mt-6 grid gap-4 md:grid-cols-2">
         {examples.map((e) => (
           <div key={e.title} className="rounded-2xl border border-white/10 bg-neutral-950/40 p-4">
-            <div className="text-sm font-medium">{e.title}</div>
+            <div className="flex items-center justify-between">
+              <div className="text-sm font-medium">{e.title}</div>
+              <button
+                onClick={e.onRefresh}
+                className="text-xs px-2 py-1 rounded bg-yellow-400 text-black hover:bg-yellow-300"
+              >
+                Refresh
+              </button>
+            </div>
+
             <div className="mt-2 text-xs opacity-60">Request</div>
             <pre className="mt-1 overflow-auto rounded-xl bg-black/40 p-3 text-xs text-neutral-100">
               {e.req}
             </pre>
+
             <div className="mt-2 text-xs opacity-60">Response</div>
             <pre className="mt-1 overflow-auto rounded-xl bg-black/40 p-3 text-xs text-neutral-100">
               {e.res}
             </pre>
+
             <div className="mt-2 text-xs opacity-70">{e.note}</div>
           </div>
         ))}
