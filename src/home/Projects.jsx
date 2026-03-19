@@ -6,7 +6,7 @@ export default function Projects() {
   const projects = useMemo(
     () => [
       {
-        id: "little-lemon",
+        id: "little-lemon-api",
         title: "Little Lemon API",
         tag: "Django • Postgres • Swagger",
         blurb:
@@ -16,9 +16,23 @@ export default function Projects() {
           "Auth + roles, production-minded email flows",
           "Postgres schema + migrations",
         ],
+        live: "https://little-lemon-api-bdsl.onrender.com/api/docs/",
       },
       {
-        id: "makeup",
+        id: "little-lemon-frontend",
+        title: "Little Lemon Frontend",
+        tag: "React • UX • API Integration",
+        blurb:
+          "Responsive restaurant UI with booking flow and API integration.",
+        bullets: [
+          "Component-based architecture",
+          "Form validation + UX flows",
+          "Connected to backend API",
+        ],
+        live: "https://littlelemon-517.pages.dev/",
+      },
+      {
+        id: "verdara",
         title: "Verdara",
         tag: "Public API • Vanilla JS • Tailwind",
         blurb:
@@ -28,30 +42,20 @@ export default function Projects() {
           "Order summary state management",
           "Polished responsive UI",
         ],
+        live: "https://verdara.pages.dev/",
       },
       {
-        id: "beer",
-        title: "Italo Jewelry",
+        id: "italo",
+        title: "Italo Jewelry Redesign",
         tag: "JS • Tailwind • UX/UI",
         blurb:
-          "Unofficial redesign concept for Italo Jewelry (italojewelry.com).",
+          "Unofficial redesign concept for Italo Jewelry.",
         bullets: [
           "Create/Update/Delete flows",
           "Reusable render functions",
           "Form validation + UX details",
         ],
-      },
-      {
-        id: "nuvibe",
-        title: "NuVibe Frontend",
-        tag: "React • Validation • Product UX",
-        blurb:
-          "Tag-based archive + strong validation patterns and UI structure.",
-        bullets: [
-          "Component architecture + routing patterns",
-          "Validation + form UX",
-          "Readable state flows",
-        ],
+        live: "https://italo-jewelry-redesign.pages.dev/",
       },
     ],
     []
