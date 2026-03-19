@@ -123,3 +123,9 @@
     }
 }
 
+html { scroll-behavior: smooth; }
+
+.highlighted {
+  color: rgb(34 211 238);
+  font-weight: 700;
+}

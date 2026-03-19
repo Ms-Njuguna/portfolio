@@ -1,55 +1,23 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-
-import { RadialIntro } from '@/components/animate-ui/components/community/radial-intro';
+import * as React from "react";
+import { RadialIntro } from "../components/animate-ui/components/community/radial-intro";
 
 const ITEMS = [
-  {
-    id: 1,
-    name: 'Framer University',
-    src: 'https://pbs.twimg.com/profile_images/1602734731728142336/9Bppcs67_400x400.jpg',
-  },
-  {
-    id: 2,
-    name: 'arhamkhnz',
-    src: 'https://pbs.twimg.com/profile_images/1897311929028255744/otxpL-ke_400x400.jpg',
-  },
-  {
-    id: 3,
-    name: 'Skyleen',
-    src: 'https://pbs.twimg.com/profile_images/1948770261848756224/oPwqXMD6_400x400.jpg',
-  },
-  {
-    id: 4,
-    name: 'Shadcn',
-    src: 'https://pbs.twimg.com/profile_images/1593304942210478080/TUYae5z7_400x400.jpg',
-  },
-  {
-    id: 5,
-    name: 'Adam Wathan',
-    src: 'https://pbs.twimg.com/profile_images/1677042510839857154/Kq4tpySA_400x400.jpg',
-  },
-  {
-    id: 6,
-    name: 'Guillermo Rauch',
-    src: 'https://pbs.twimg.com/profile_images/1783856060249595904/8TfcCN0r_400x400.jpg',
-  },
-  {
-    id: 7,
-    name: 'Jhey',
-    src: 'https://pbs.twimg.com/profile_images/1534700564810018816/anAuSfkp_400x400.jpg',
-  },
-  {
-    id: 8,
-    name: 'David Haz',
-    src: 'https://pbs.twimg.com/profile_images/1927474594102784000/Al0g-I6o_400x400.jpg',
-  },
-  {
-    id: 9,
-    name: 'Matt Perry',
-    src: 'https://pbs.twimg.com/profile_images/1690345911149375488/wfD0Ai9j_400x400.jpg',
-  },
+  { id: 1, name: "React", src: "https://avatars.githubusercontent.com/u/6412038?s=200&v=4" },
+  { id: 2, name: "Django", src: "https://avatars.githubusercontent.com/u/27804?s=200&v=4" },
+  { id: 3, name: "Postgres", src: "https://avatars.githubusercontent.com/u/177543?s=200&v=4" },
+  { id: 4, name: "Tailwind", src: "https://avatars.githubusercontent.com/u/67109815?s=200&v=4" },
+  { id: 5, name: "Vite", src: "https://avatars.githubusercontent.com/u/65625612?s=200&v=4" },
+  { id: 6, name: "Git", src: "https://avatars.githubusercontent.com/u/18133?s=200&v=4" },
+  { id: 7, name: "Node", src: "https://avatars.githubusercontent.com/u/9950313?s=200&v=4" },
+  { id: 8, name: "JS", src: "https://avatars.githubusercontent.com/u/14600596?s=200&v=4" },
 ];
 
-export const RadialIntroDemo = () => <RadialIntro orbitItems={ITEMS} />;
+export const RadialIntroDemo = () => (
+  <div className="flex flex-col items-center gap-4">
+    <div className="text-sm font-medium opacity-80">Tech orbit</div>
+    <RadialIntro orbitItems={ITEMS} stageSize={340} imageSize={58} />
+    <div className="text-xs opacity-60">A tiny flex: motion + clean layout.</div>
+  </div>
+);
