@@ -18,7 +18,7 @@ export default function Homepage() {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-neutral-950/75 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <a href="#top" className="font-semibold tracking-tight">
-            Trish Njuguna<span className="opacity-60"> ● Full-Stack Developer</span>
+            Juna<span className="opacity-60"> ● Full-Stack Developer</span>
           </a>
 
           <nav className="hidden gap-6 text-sm md:flex">
@@ -120,7 +120,7 @@ export default function Homepage() {
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
-            <CopyChip label="Email" value="njugunatrish@gmail.com" />
+            <CopyChip label="Email" value="byjuna.ke@gmail.com" />
             <CopyChip label="GitHub" value="https://github.com/Ms-Njuguna" />
             <a
               className="rounded-full border border-white/15 px-4 py-2 text-sm hover:bg-white/5"

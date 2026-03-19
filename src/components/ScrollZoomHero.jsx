@@ -116,7 +116,7 @@ export default function ScrollZoomHero() {
             className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center"
           >
             <h1 className="uppercase font-bold tracking-tight text-white text-[clamp(56px,18vw,220px)] drop-shadow-[0_10px_60px_rgba(0,0,0,0.7)] select-none">
-              TRISH
+              JUNA
             </h1>
             <p className="mt-2 max-w-xl px-6 text-sm md:text-base text-white/80">
               Full-stack software engineer dealing with React interfaces + documented APIs + the polish that sells.

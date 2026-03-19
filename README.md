@@ -1,16 +1,60 @@
-# React + Vite
+# Juna (*Patricia Njuguna*) portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <b>Full-Stack Software Engineer</b><br/>
+  Building scalable systems, polished UIs, and real-world API integrations.
+</p>
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## React Compiler
+<p align="center">
+  <img src="https://img.shields.io/badge/Frontend-React-61DAFB?style=for-the-badge&logo=react&logoColor=black"/>
+  <img src="https://img.shields.io/badge/Styling-TailwindCSS-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=black"/>
+  <img src="https://img.shields.io/badge/Animations-FramerMotion-black?style=for-the-badge&logo=framer&logoColor=white"/>
+</p>
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+<p align="center">
+  <img src="https://img.shields.io/badge/Backend-Django-092E20?style=for-the-badge&logo=django&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Database-PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Auth-JWT-black?style=for-the-badge&logo=jsonwebtokens"/>
+</p>
 
-## Expanding the ESLint configuration
+<p align="center">
+  <img src="https://img.shields.io/badge/API-REST-blue?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Docs-OpenAPI-green?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Docs-Redoc-red?style=for-the-badge"/>
+</p>
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Featured Project
+
+### Little Lemon System
+
+A full-stack reservation platform built with real-world architecture.
+
+#### Features:
+- Authentication (JWT)
+- Reservation system with availability logic
+- API-driven UI
+- Embedded API documentation (Redoc)
+- Clean, scalable backend (Django REST)
+
+---
+
+## Live Links
+
+- 🌐 Frontend: https://your-portfolio-link.com
+
+---
+
+## Run Locally
+
+```bash
+git clone https://github.com/your-username/your-portfolio.git
+cd your-portfolio
+npm install
+npm run dev
+```
