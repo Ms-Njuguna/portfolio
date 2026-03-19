@@ -153,8 +153,27 @@ export default function Projects() {
                 ))}
               </div>
 
-              <div className="mt-6 text-xs opacity-60">
-                Tip: Wire “View repo / Live demo” buttons once you drop in your real links.
+              <div className="mt-6 flex gap-3">
+                <a
+                  href={active.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-xl bg-white text-black px-4 py-2 text-sm font-medium hover:opacity-90"
+                >
+                  Live Demo →
+                </a>
+
+                {/* Optional repo button later */}
+                {/*
+                  <a
+                    href={active.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-xl border border-white/20 px-4 py-2 text-sm hover:bg-white/5"
+                  >
+                    View Code
+                  </a>
+                */}
               </div>
             </motion.div>
           </motion.div>
