@@ -101,6 +101,18 @@ export default function Projects() {
           "Form validation + UX details",
         ],
         live: "https://italo-jewelry-redesign.pages.dev/",
+        caseStudy: {
+          problem: "The original Italo Jewelry website lacks modern UI/UX patterns, with cluttered layouts, weak visual hierarchy, and a less intuitive user flow, making it harder for users to browse and convert.",
+          solution: "Redesigned the Italo Jewelry experience with a focus on clean layout, improved visual hierarchy, and intuitive navigation, creating a more modern and conversion-friendly interface.",
+          tech: [
+            "Vanilla JavaScript for dynamic rendering and interactions",
+            "Tailwind CSS for consistent and responsive design",
+            "Reusable UI components for scalability",
+            "Form validation for improved user input experience"
+          ],
+          challenges: "Balancing aesthetics with usability while redesigning an existing product. Also ensuring the UI improvements translated into a smoother and more intuitive user experience.",
+          impact: "Delivered a cleaner, more modern interface that improves usability, enhances product visibility, and creates a more engaging shopping experience."
+        },
         images: [
           "/assets/projects/italo-home.jpeg",
           "/assets/projects/italo-productpreview.jpeg",
