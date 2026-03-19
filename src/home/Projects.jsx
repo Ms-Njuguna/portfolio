@@ -17,6 +17,18 @@ export default function Projects() {
           "Postgres schema + migrations",
         ],
         live: "https://little-lemon-api-bdsl.onrender.com/api/docs/",
+        caseStudy: {
+          problem: "Restaurants need a reliable system to manage bookings, user authentication, and admin workflows but many lack scalable backend systems.",
+          solution: "Built a production-ready REST API using Django, PostgreSQL, and Swagger with authentication and role-based access.",
+          tech: [
+            "Django REST Framework for scalable APIs",
+            "PostgreSQL for relational data management",
+            "Swagger/OpenAPI for documentation",
+            "Token-based authentication for security"
+          ],
+          challenges: "Designing secure authentication and role-based permissions while maintaining flexibility.",
+          impact: "Fully documented and testable API that reduces frontend integration time."
+        }
       },
       {
         id: "little-lemon-frontend",
@@ -144,6 +156,39 @@ export default function Projects() {
                   ))}
                 </ul>
               </div>
+
+              {active.caseStudy && (
+                <div className="mt-6 space-y-5 text-sm">
+                  <div>
+                    <div className="text-xs uppercase opacity-60">Problem</div>
+                    <p className="opacity-80 mt-1">{active.caseStudy.problem}</p>
+                  </div>
+
+                  <div>
+                    <div className="text-xs uppercase opacity-60">Solution</div>
+                    <p className="opacity-80 mt-1">{active.caseStudy.solution}</p>
+                  </div>
+
+                  <div>
+                    <div className="text-xs uppercase opacity-60">Tech Decisions</div>
+                    <ul className="list-disc pl-5 mt-1 space-y-1 opacity-80">
+                      {active.caseStudy.tech.map((t) => (
+                        <li key={t}>{t}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <div className="text-xs uppercase opacity-60">Challenges</div>
+                    <p className="opacity-80 mt-1">{active.caseStudy.challenges}</p>
+                  </div>
+
+                  <div>
+                    <div className="text-xs uppercase opacity-60">Impact</div>
+                    <p className="opacity-80 mt-1">{active.caseStudy.impact}</p>
+                  </div>
+                </div>
+              )}
 
               <div className="mt-5 flex flex-wrap gap-2 text-xs">
                 {["Clean UI", "Solid validation", "Docs-first", "Production mindset"].map((t) => (
