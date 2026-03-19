@@ -53,7 +53,12 @@ export default function Projects() {
           ],
           challenges: "Managing form state and validation while keeping the UI responsive and user-friendly. Also ensuring smooth communication between frontend and backend APIs.",
           impact: "Delivered a clean, responsive interface that improves user experience and enables real-time booking interactions with the backend system."
-        }
+        },
+        images: [
+          "/assets/projects/lemon-home.jpeg",
+          "/assets/projects/lemon-booking.jpeg",
+          "/assets/projects/lemon-mobile.jpg",
+        ],
       },
       {
         id: "verdara",
@@ -78,7 +83,11 @@ export default function Projects() {
           ],
           challenges: "Handling inconsistent API data and ensuring the UI doesn't break when requests fail. Also managing cart state dynamically without a framework.",
           impact: "Delivered a smooth and resilient shopping experience with fast interactions, improved error handling, and clean UI responsiveness across devices."
-        }
+        },
+        images: [
+          "/assets/projects/verdara-home.jpeg",
+          "/assets/projects/verdara-cart.jpeg",
+        ],
       },
       {
         id: "italo",
