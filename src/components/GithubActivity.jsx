@@ -1,87 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const DEFAULT_USER = "Ms-Njuguna";
-const CACHE_KEY = (user) => `pf_gh_events_${user}`;
-const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
 
-function timeAgo(dateString) {
-  const d = new Date(dateString);
-  const diffMs = Date.now() - d.getTime();
-  const sec = Math.floor(diffMs / 1000);
-  if (sec < 60) return `${sec}s ago`;
-  const min = Math.floor(sec / 60);
-  if (min < 60) return `${min}m ago`;
-  const hr = Math.floor(min / 60);
-  if (hr < 48) return `${hr}h ago`;
-  const day = Math.floor(hr / 24);
-  return `${day}d ago`;
-}
-
-function niceType(t) {
-  const map = {
-    PushEvent: "Pushed commits",
-    PullRequestEvent: "Pull request",
-    IssuesEvent: "Issue activity",
-    CreateEvent: "Created",
-    DeleteEvent: "Deleted",
-    WatchEvent: "Starred",
-    ForkEvent: "Forked",
-    ReleaseEvent: "Released",
-    PullRequestReviewEvent: "Reviewed PR",
-    PullRequestReviewCommentEvent: "PR comments",
-    IssueCommentEvent: "Issue comment",
-  };
-  return map[t] || t.replace(/Event$/, "");
-}
-
-function summaryFor(e) {
-  const repo = e?.repo?.name || "repo";
-  const type = e?.type;
-
-  if (type === "PushEvent") {
-    const count = e?.payload?.commits?.length ?? 0;
-    const branch = e?.payload?.ref?.replace("refs/heads/", "");
-    return `${count} commit${count === 1 ? "" : "s"} to ${repo}${branch ? ` (${branch})` : ""}`;
-  }
-
-  if (type === "PullRequestEvent") {
-    const action = e?.payload?.action || "updated";
-    const pr = e?.payload?.pull_request;
-    const title = pr?.title ? ` — ${pr.title}` : "";
-    return `${action} PR in ${repo}${title}`;
-  }
-
-  if (type === "IssuesEvent") {
-    const action = e?.payload?.action || "updated";
-    const title = e?.payload?.issue?.title ? ` — ${e.payload.issue.title}` : "";
-    return `${action} issue in ${repo}${title}`;
-  }
-
-  if (type === "CreateEvent") {
-    const refType = e?.payload?.ref_type || "item";
-    const ref = e?.payload?.ref ? `: ${e.payload.ref}` : "";
-    return `${refType} created in ${repo}${ref}`;
-  }
-
-  if (type === "ReleaseEvent") {
-    const name = e?.payload?.release?.name || e?.payload?.release?.tag_name || "";
-    return `release in ${repo}${name ? ` — ${name}` : ""}`;
-  }
-
-  return `activity in ${repo}`;
-}
-
-export default function GithubActivity({
-  username = DEFAULT_USER,
-  limit = 10,
-}) {
-  const [events, setEvents] = useState([]);
+export default function GithubIntel({ username = DEFAULT_USER }) {
+  const [repos, setRepos] = useState([]);
+  const [languages, setLanguages] = useState({});
   const [status, setStatus] = useState({ loading: true, error: "" });
-
-  const endpoint = useMemo(
-    () => `https://api.github.com/users/${encodeURIComponent(username)}/events/public?per_page=${limit}`,
-    [username, limit]
-  );
 
   useEffect(() => {
     let cancelled = false;
@@ -89,142 +13,156 @@ export default function GithubActivity({
     async function load() {
       setStatus({ loading: true, error: "" });
 
-      // cache read
       try {
-        const raw = localStorage.getItem(CACHE_KEY(username));
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          if (parsed?.ts && Array.isArray(parsed?.data)) {
-            const fresh = Date.now() - parsed.ts < CACHE_TTL_MS;
-            if (fresh) {
-              if (!cancelled) {
-                setEvents(parsed.data);
-                setStatus({ loading: false, error: "" });
-              }
-              return;
-            }
-          }
-        }
-      } catch {
-        // ignore cache parse errors
-      }
+        const res = await fetch(
+          `https://api.github.com/users/${username}/repos?per_page=100`
+        );
 
-      // network fetch
-      try {
-        const res = await fetch(endpoint, {
-          headers: {
-            Accept: "application/vnd.github+json",
-          },
-        });
-
-        if (!res.ok) {
-          // GitHub sometimes rate limits hard on unauthenticated requests
-          const msg =
-            res.status === 403
-              ? "GitHub rate limit hit (try again later)."
-              : `GitHub request failed (${res.status}).`;
-          throw new Error(msg);
-        }
+        if (!res.ok) throw new Error("GitHub fetch failed");
 
         const data = await res.json();
-        if (!cancelled) {
-          setEvents(Array.isArray(data) ? data : []);
-          setStatus({ loading: false, error: "" });
-        }
 
-        try {
-          localStorage.setItem(
-            CACHE_KEY(username),
-            JSON.stringify({ ts: Date.now(), data: Array.isArray(data) ? data : [] })
-          );
-        } catch {
-          // ignore cache write errors
-        }
+        if (cancelled) return;
+
+        // 🔥 Top repos
+        const top = data
+          .filter((r) => !r.fork)
+          .sort((a, b) => b.stargazers_count - a.stargazers_count)
+          .slice(0, 5);
+
+        setRepos(top);
+
+        // 🔥 Language aggregation
+        const langMap = {};
+        data.forEach((repo) => {
+          if (repo.language) {
+            langMap[repo.language] =
+              (langMap[repo.language] || 0) + 1;
+          }
+        });
+
+        setLanguages(langMap);
+
+        setStatus({ loading: false, error: "" });
       } catch (err) {
         if (!cancelled) {
-          setStatus({ loading: false, error: err?.message || "Failed to load activity." });
+          setStatus({
+            loading: false,
+            error: err.message,
+          });
         }
       }
     }
 
     load();
-    return () => {
-      cancelled = true;
-    };
-  }, [endpoint, username]);
+    return () => (cancelled = true);
+  }, [username]);
+
+  const totalLangs = Object.values(languages).reduce(
+    (a, b) => a + b,
+    0
+  );
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+    <section className="rounded-3xl border border-white/10 bg-white/5 p-6">
+      {/* HEADER */}
+      <div className="flex justify-between items-end">
         <div>
-          <h3 className="text-xl font-semibold tracking-tight">GitHub activity</h3>
-          <p className="mt-1 text-sm opacity-70">
-            Live feed from public events — cached for speed.
+          <h3 className="text-xl font-semibold tracking-tight">
+            GitHub
+          </h3>
+          <p className="text-sm opacity-60">
+            Selected work & tech focus
           </p>
         </div>
 
         <a
-          className="rounded-full border border-white/15 px-3 py-1 text-xs opacity-80 hover:bg-white/5"
           href={`https://github.com/${username}`}
           target="_blank"
           rel="noreferrer"
+          className="text-xs opacity-60 hover:opacity-100"
         >
           @{username}
         </a>
       </div>
 
-      <div className="mt-5">
-        {status.loading && (
-          <div className="rounded-2xl border border-white/10 bg-neutral-950/40 p-4 text-sm opacity-70">
-            Loading activity…
-          </div>
-        )}
+      {/* LOADING / ERROR */}
+      {status.loading && (
+        <div className="mt-6 text-sm opacity-60">
+          Loading…
+        </div>
+      )}
 
-        {!status.loading && status.error && (
-          <div className="rounded-2xl border border-white/10 bg-neutral-950/40 p-4 text-sm">
-            <div className="font-medium">Couldn’t load GitHub activity</div>
-            <div className="mt-1 opacity-70">{status.error}</div>
-            <div className="mt-3 text-xs opacity-60">
-              Tip: If this happens often, you can add a GitHub token via a tiny serverless proxy later.
+      {status.error && (
+        <div className="mt-6 text-sm text-red-400">
+          {status.error}
+        </div>
+      )}
+
+      {/* CONTENT */}
+      {!status.loading && !status.error && (
+        <>
+          {/* TOP REPOS */}
+          <div className="mt-6 space-y-3">
+            {repos.map((repo) => (
+              <a
+                key={repo.id}
+                href={repo.html_url}
+                target="_blank"
+                rel="noreferrer"
+                className="block rounded-xl border border-white/10 bg-neutral-950/40 px-4 py-3 hover:bg-white/5 transition"
+              >
+                <div className="flex justify-between items-center">
+                  <span className="text-sm font-medium">
+                    {repo.name}
+                  </span>
+                  <span className="text-xs opacity-60">
+                    ⭐ {repo.stargazers_count}
+                  </span>
+                </div>
+
+                {repo.description && (
+                  <p className="mt-1 text-xs opacity-60 line-clamp-1">
+                    {repo.description}
+                  </p>
+                )}
+              </a>
+            ))}
+          </div>
+
+          {/* LANGUAGE BARS */}
+          <div className="mt-8">
+            <p className="text-xs uppercase opacity-50 mb-3">
+              Tech Focus
+            </p>
+
+            <div className="space-y-2">
+              {Object.entries(languages)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5)
+                .map(([lang, count]) => {
+                  const percent = (count / totalLangs) * 100;
+
+                  return (
+                    <div key={lang}>
+                      <div className="flex justify-between text-xs opacity-70">
+                        <span>{lang}</span>
+                        <span>{Math.round(percent)}%</span>
+                      </div>
+
+                      <div className="mt-1 h-[4px] w-full bg-white/10 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-white/70 rounded-full"
+                          style={{ width: `${percent}%` }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
           </div>
-        )}
-
-        {!status.loading && !status.error && (
-          <ul className="space-y-3">
-            {events.slice(0, limit).map((e) => (
-              <li
-                key={e.id}
-                className="rounded-2xl border border-white/10 bg-neutral-950/40 p-3 sm:p-4"
-              >
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div className="text-sm font-medium">
-                    {niceType(e.type)}
-                  </div>
-                  <div className="text-xs opacity-60">
-                    {timeAgo(e.created_at)}
-                  </div>
-                </div>
-
-                <div className="mt-2 text-sm opacity-80">
-                  {summaryFor(e)}
-                </div>
-
-                {e?.repo?.name && (
-                  <a
-                    className="mt-3 inline-block text-xs opacity-70 hover:opacity-100"
-                    href={`https://github.com/${e.repo.name}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    View repo →
-                  </a>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </div>
+        </>
+      )}
+    </section>
   );
 }
