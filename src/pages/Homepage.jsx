@@ -8,6 +8,7 @@ import CommandK from "../components/CommandK";
 import GithubActivity from "../components/GithubActivity";
 import ApiDocsEmbed from "../components/ApiDocsEmbed";
 import Copy from "../assets/copy.svg";
+import WhatsAppFloat from "../components/WhatsAppFloat";
 
 export default function Homepage() {
   return (
@@ -126,6 +127,7 @@ export default function Homepage() {
           </div>
         </div>
       </footer>
+      <WhatsAppFloat />
     </main>
   );
 }
