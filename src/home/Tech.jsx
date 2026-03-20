@@ -2,15 +2,15 @@ import { RadialIntroDemo } from "../ui/RadialIntro";
 
 export default function Tech() {
   return (
-    <section className="grid gap-6 md:grid-cols-2">
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-        <h2 className="text-2xl font-semibold tracking-tight">My stack</h2>
-        <p className="mt-2 text-sm opacity-70">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6">
+        <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">My stack</h2>
+        <p className="mt-2 text-xs sm:text-sm opacity-70">
           I’m strongest where product meets engineering: UI systems, API design,
           data modeling, and the details that make apps feel “done”.
         </p>
 
-        <div className="mt-5 grid grid-cols-2 gap-3 text-sm">
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
           {[
             "React + Motion",
             "Django + DRF",
@@ -31,7 +31,7 @@ export default function Tech() {
         </div>
       </div>
 
-      <div className="flex items-center justify-center rounded-3xl border border-white/10 bg-white/5 p-6">
+      <div className="flex items-center justify-center rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6">
         <RadialIntroDemo />
       </div>
     </section>

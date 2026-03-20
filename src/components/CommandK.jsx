@@ -50,7 +50,7 @@ export default function CommandK() {
           onClick={() => setOpen(false)}
         >
           <motion.div
-            className="w-full max-w-xl rounded-3xl border border-white/10 bg-neutral-950 p-4"
+            className="w-full max-w-[95vw] sm:max-w-xl rounded-3xl border border-white/10 bg-neutral-950 p-3 sm:p-4"
             initial={{ y: 14, opacity: 0, scale: 0.98 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 14, opacity: 0, scale: 0.98 }}
@@ -62,7 +62,7 @@ export default function CommandK() {
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 autoFocus
-                className="w-full bg-transparent text-sm outline-none"
+                className="w-full bg-transparent text-sm sm:text-base outline-none"
                 placeholder="Jump to section…"
               />
               <span className="text-xs opacity-50">Esc</span>

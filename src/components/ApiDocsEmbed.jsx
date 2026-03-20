@@ -64,7 +64,7 @@ export default function ApiDocsEmbed() {
   }, []);
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
+    <div className="rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6">
       <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
         <div>
           <h3 className="text-xl font-semibold tracking-tight">API docs</h3>
@@ -91,7 +91,7 @@ export default function ApiDocsEmbed() {
 
         <div
   id="redoc-container"
-  className="h-130 max-h-[80vh] overflow-y-auto rounded-xl"
+  className="h-[60vh] sm:h-[70vh] lg:h-[80vh] overflow-y-auto rounded-xl"
 />
       </div>
     </div>

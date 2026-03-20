@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useMemo, useRef } from "react";
 
-const ITEM_WIDTH = 400;
+const ITEM_WIDTH = typeof window !== "undefined" && window.innerWidth < 640 ? 260 : 400;
 const GAP = 30;
 
 export default function ScrollHorizontal() {
@@ -47,11 +47,13 @@ export default function ScrollHorizontal() {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"],
+    offset: ["start start", "end 80%"], // 👈 key change
   });
 
   const totalDistance = (items.length - 1) * (ITEM_WIDTH + GAP);
   const x = useTransform(scrollYProgress, [0, 1], [0, -totalDistance]);
+
+  const dynamicHeight = (items.length - 1) * 32;
 
   return (
     <div id="featured-scroll">
@@ -62,7 +64,7 @@ export default function ScrollHorizontal() {
         </p>
       </section>
 
-      <div ref={containerRef} className="scroll-container">
+      <div ref={containerRef} className="scroll-container" style={{ height: `${dynamicHeight}vh`, position: "relative" }}>
         <div className="sticky-wrapper">
           <motion.div className="gallery" style={{ x }}>
             {items.map((item) => (
@@ -93,10 +95,6 @@ export default function ScrollHorizontal() {
         </div>
       </div>
 
-      <section className="outro-section">
-        <p className="big">Next → Projects</p>
-      </section>
-
       <StyleSheet />
     </div>
   );
@@ -107,7 +105,8 @@ function StyleSheet() {
     <style>{`
       #featured-scroll { overflow: visible; }
       .intro-section {
-        height: 42vh;
+        height: 12vh;
+        padding: 40px 16px 20px;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -129,12 +128,13 @@ function StyleSheet() {
         opacity: 0.7;
       }
 
-      .scroll-container { height: 280vh; position: relative; }
       .sticky-wrapper {
         position: sticky;
         top: 0;
-        height: 100vh;
-        width: 400px;
+        height: 90vh;
+        width: 100%;
+        max-width: 400px;
+        padding: 0 16px;
         margin: 0 auto;
         display: flex;
         align-items: center;
@@ -146,8 +146,8 @@ function StyleSheet() {
 
       .gallery-item {
         flex-shrink: 0;
-        width: 400px;
-        height: 520px;
+        width: clamp(260px, 80vw, 400px);
+        height: clamp(380px, 60vh, 520px);
         border-radius: 18px;
         position: relative;
         overflow: hidden;
@@ -214,13 +214,6 @@ function StyleSheet() {
         border-radius: 999px;
       }
 
-      .outro-section {
-        height: 45vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        opacity: 0.85;
-      }
       .big { font-size: 18px; }
 
       @media (max-width: 600px) {
@@ -238,6 +231,7 @@ function StyleSheet() {
           width: 100%;
           overflow-x: auto;
           padding: 36px 0;
+          display: flex;
         }
       }
     `}</style>

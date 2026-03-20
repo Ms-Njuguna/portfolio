@@ -27,8 +27,8 @@ const armOfImg = (img) =>
 
 function RadialIntro({
   orbitItems,
-  stageSize = 320,
-  imageSize = 60
+  stageSize = "clamp(260px, 70vw, 420px)",
+  imageSize = "clamp(40px, 10vw, 70px)"
 }) {
   const step = 360 / orbitItems.length;
   const [scope, animate] = useAnimate();
@@ -86,9 +86,9 @@ function RadialIntro({
   return (
     <LayoutGroup>
       <motion.div
-        ref={scope}
-        className="relative overflow-visible"
-        style={{ width: stageSize, height: stageSize }}
+  ref={scope}
+  className="relative overflow-visible mx-auto"
+  style={{ width: stageSize, height: stageSize }}
         initial={false}>
         {orbitItems.map((item, i) => (
           <motion.div
@@ -102,10 +102,10 @@ function RadialIntro({
               data-arm-image
               className="rounded-full object-fill absolute left-1/2 top-1/2 aspect-square translate -translate-x-1/2"
               style={{
-                width: imageSize,
-                height: imageSize,
-                opacity: i === 0 ? 1 : 0,
-              }}
+    width: imageSize,
+    height: imageSize,
+    opacity: i === 0 ? 1 : 0,
+  }}
               src={item.src}
               alt={item.name}
               draggable={false}

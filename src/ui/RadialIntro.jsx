@@ -17,7 +17,11 @@ const ITEMS = [
 export const RadialIntroDemo = () => (
   <div className="flex flex-col items-center gap-4">
     <div className="text-sm font-medium opacity-80">Tech orbit</div>
-    <RadialIntro orbitItems={ITEMS} stageSize={340} imageSize={58} />
+    <RadialIntro
+  orbitItems={ITEMS}
+  stageSize={window.innerWidth < 768 ? 260 : 340}
+  imageSize={window.innerWidth < 768 ? 44 : 58}
+/>
     <div className="text-xs opacity-60">A tiny flex: motion + clean layout.</div>
   </div>
 );

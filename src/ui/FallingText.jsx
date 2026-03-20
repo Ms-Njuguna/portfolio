@@ -15,6 +15,8 @@ const FallingText = ({
   const textRef = useRef(null);
   const canvasContainerRef = useRef(null);
 
+  const isMobile = window.innerWidth < 768;
+
   const [effectStarted, setEffectStarted] = useState(false);
 
   useEffect(() => {
@@ -37,8 +39,13 @@ const FallingText = ({
 
   useEffect(() => {
     if (trigger === 'auto') {
-      setEffectStarted(true);
-      return;
+      const delay = isMobile ? 2000 : 0; // 👈 mobile delay
+
+      const timer = setTimeout(() => {
+        setEffectStarted(true);
+      }, delay);
+
+      return () => clearTimeout(timer);
     }
     if (trigger === 'scroll' && containerRef.current) {
       const observer = new IntersectionObserver(
@@ -67,7 +74,7 @@ const FallingText = ({
     if (width <= 0 || height <= 0) return;
 
     const engine = Engine.create();
-    engine.world.gravity.y = gravity;
+    engine.world.gravity.y = isMobile ? 0.35 : gravity;
 
     const render = Render.create({
       element: canvasContainerRef.current,
@@ -113,9 +120,9 @@ const FallingText = ({
 
     wordBodies.forEach(({ elem, body }) => {
       elem.style.position = 'absolute';
-      elem.style.left = `${body.position.x - body.bounds.max.x + body.bounds.min.x / 2}px`;
-      elem.style.top = `${body.position.y - body.bounds.max.y + body.bounds.min.y / 2}px`;
-      elem.style.transform = 'none';
+      elem.style.left = `${body.position.x}px`;
+      elem.style.top = `${body.position.y}px`;
+      elem.style.transform = 'translate(-50%, -50%)';
     });
 
     const mouse = Mouse.create(containerRef.current);
@@ -167,7 +174,7 @@ const FallingText = ({
   return (
     <div
       ref={containerRef}
-      className="relative z-1 w-full h-full cursor-pointer text-center pt-8 overflow-hidden"
+      className="relative z-10 w-full h-full min-h-50 cursor-pointer text-center pt-6 overflow-hidden"
       onClick={trigger === 'click' ? handleTrigger : undefined}
       onMouseEnter={trigger === 'hover' ? handleTrigger : undefined}
     >
@@ -180,7 +187,7 @@ const FallingText = ({
         }}
       />
 
-      <div className="absolute top-0 left-0 z-0" ref={canvasContainerRef} />
+      <div className="absolute inset-0 z-0" ref={canvasContainerRef} />
     </div>
   );
 };

@@ -79,7 +79,7 @@ export default function ScrollZoomHero() {
 
   return (
     <div className="w-full">
-      <section ref={ref} className="relative h-[220vh]">
+      <section ref={ref} className="relative h-[120vh] sm:h-[140vh] lg:h-[160vh]">
         <div className="sticky top-0 h-screen overflow-hidden">
           <motion.canvas
             ref={canvasRef}
@@ -94,7 +94,7 @@ export default function ScrollZoomHero() {
 
           {/* Light blob layer */}
           <motion.div style={{ y: layer1Y }} className="absolute inset-0 will-change-transform">
-            <div className="absolute -top-24 left-1/2 h-130 w-130 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
+            <div className="absolute -top-24 left-1/2 h-75 w-75 sm:h-100sm:w-100 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
           </motion.div>
 
           {/* Grain overlay */}
@@ -115,10 +115,10 @@ export default function ScrollZoomHero() {
             style={{ y: titleY, opacity: titleOpacity }}
             className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center"
           >
-            <h1 className="uppercase font-bold tracking-tight text-white text-[clamp(56px,18vw,220px)] drop-shadow-[0_10px_60px_rgba(0,0,0,0.7)] select-none">
+            <h1 className="uppercase font-bold tracking-tight text-white text-[clamp(40px,14vw,180px)] drop-shadow-[0_10px_60px_rgba(0,0,0,0.7)] select-none">
               JUNA
             </h1>
-            <p className="mt-2 max-w-xl px-6 text-sm md:text-base text-white/80">
+            <p className="mt-2 max-w-xl px-4 sm:px-6 text-xs sm:text-sm md:text-base text-white/80">
               Full-stack software engineer dealing with React interfaces + documented APIs + the polish that sells.
             </p>
           </motion.div>

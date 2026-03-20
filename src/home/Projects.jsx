@@ -126,7 +126,7 @@ export default function Projects() {
   const active = projects.find((p) => p.id === open);
 
   return (
-    <section className="py-10">
+    <section className="pt-20 pb-10">
       <ScrollFloat
         animationDuration={1}
         ease="back.inOut(2)"
@@ -137,17 +137,17 @@ export default function Projects() {
         Projects
       </ScrollFloat>
 
-      <div className="mt-6 grid gap-4 md:grid-cols-2">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
         {projects.map((p) => (
           <button
             key={p.id}
             onClick={() => setOpen(p.id)}
-            className="group rounded-3xl border border-white/10 bg-white/5 p-5 text-left hover:bg-white/7"
+            className="group rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-5 text-left hover:bg-white/7"
             type="button"
           >
             <div className="flex items-start justify-between gap-3">
               <div>
-                <div className="text-lg font-semibold tracking-tight">
+                <div className="text-base sm:text-lg font-semibold tracking-tight">
                   {p.title}
                 </div>
                 <div className="mt-1 text-xs opacity-60">{p.tag}</div>
@@ -171,7 +171,7 @@ export default function Projects() {
             onClick={() => setOpen(null)}
           >
             <motion.div
-              className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border border-white/10 bg-neutral-950 p-6"
+              className="w-full max-w-[95vw] sm:max-w-2xl max-h-[85vh] sm:max-h-[90vh] overflow-y-auto rounded-3xl border border-white/10 bg-neutral-950 p-4 sm:p-6"
               initial={{ y: 20, opacity: 0, scale: 0.98 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 20, opacity: 0, scale: 0.98 }}
@@ -196,13 +196,13 @@ export default function Projects() {
               <p className="mt-4 text-sm opacity-80">{active.blurb}</p>
 
               {active.images && (
-                <div className="mt-5 flex gap-3 overflow-x-auto pb-2">
+                <div className="mt-5 flex gap-3 overflow-x-auto pb-2 scrollbar-thin">
                   {active.images.map((img, index) => (
                     <img
                       key={index}
                       src={img}
                       alt={`${active.title} screenshot ${index + 1}`}
-                      className="h-40 w-auto rounded-xl border border-white/10 object-cover"
+                      className="h-32 sm:h-40 w-auto rounded-xl border border-white/10 object-cover"
                     />
                   ))}
                 </div>
@@ -260,7 +260,7 @@ export default function Projects() {
                 ))}
               </div>
 
-              <div className="mt-6 flex gap-3 sticky bottom-0 bg-neutral-950 pt-4">
+              <div className="mt-6 flex flex-col sm:flex-row gap-3 sticky bottom-0 bg-neutral-950 pt-4">
                 <a
                   href={active.live}
                   target="_blank"

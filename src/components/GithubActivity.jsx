@@ -155,7 +155,7 @@ export default function GithubActivity({
 
   return (
     <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-      <div className="flex items-end justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
           <h3 className="text-xl font-semibold tracking-tight">GitHub activity</h3>
           <p className="mt-1 text-sm opacity-70">
@@ -195,7 +195,7 @@ export default function GithubActivity({
             {events.slice(0, limit).map((e) => (
               <li
                 key={e.id}
-                className="rounded-2xl border border-white/10 bg-neutral-950/40 p-4"
+                className="rounded-2xl border border-white/10 bg-neutral-950/40 p-3 sm:p-4"
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="text-sm font-medium">
